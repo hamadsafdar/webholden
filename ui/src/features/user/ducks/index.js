@@ -25,6 +25,10 @@ const userActions = {
 
 function userReducer(state = initialState, action) {
 	switch (action.type) {
+		case types.LOGIN:
+			return state;
+		default:
+			return state;
 	}
 }
 

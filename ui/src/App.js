@@ -1,27 +1,16 @@
-import { useCallback, useState } from 'react';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
+
 import './App.css';
-import { Button, Editor, Topbar, Viewer, History } from './components';
+import { SignIn, Wiki } from './features';
 
 function App() {
-	const [content, setContent] = useState('');
-
-	const onContentChange = useCallback((value) => {
-		setContent(value);
-	}, []);
-
-	const resetContent = useCallback(() => {
-		setContent('');
-	}, []);
 	return (
-		<div className="App">
-			<Topbar />
-			<div style={{ display: 'flex', width: '100%' }}>
-				<Editor content={content} onChange={onContentChange} />
-				<Viewer content={content} />
-			</div>
-			<Button onClick={resetContent} label="Reset" />
-			<History />
-		</div>
+		<BrowserRouter>
+			<Switch>
+				<Route path="/" exact component={SignIn} />
+				<Route path="/wiki" exact component={Wiki} />
+			</Switch>
+		</BrowserRouter>
 	);
 }
 
