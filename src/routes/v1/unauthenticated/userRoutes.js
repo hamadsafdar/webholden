@@ -3,7 +3,7 @@ import userController from '../../../controllers/userController.js';
 
 const userRouter = express.Router();
 
-userRouter.post('/', async (req, res) => {
+userRouter.post('/register', async (req, res) => {
 	try {
 		const result = await userController.registerUser(
 			req.user._id,
@@ -19,7 +19,6 @@ userRouter.post('/', async (req, res) => {
 });
 
 userRouter.post('/authenticate', async (req, res) => {
-	console.log('test');
 	try {
 		const result = await userController.login(req.body);
 		console.log(result);
@@ -37,6 +36,8 @@ userRouter.post('/authenticate', async (req, res) => {
 			});
 		}
 	} catch (error) {
+		console.log(error);
+
 		return res.status(500).json({
 			message: 'INTERNAL_ERROR'
 		});

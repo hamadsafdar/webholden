@@ -3,6 +3,7 @@ dotenv.config();
 import mongoose from 'mongoose';
 import express from 'express';
 import passport from 'passport';
+import cors from 'cors';
 import mainUnauthRouter from './routes/v1/unauthIndex.js';
 import mainAuthRouter from './routes/v1/authIndex.js';
 import passportConfig from './middlewares/passport.js';
@@ -16,71 +17,72 @@ let dbConnection = mongoose.connection;
 const reconnectTimeout = 5000;
 let retries = 1;
 function connect() {
-  mongoose
-    .connect(process.env.MONGODB_URI, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      auto_reconnect: true,
-    })
-    .catch(() => {
-      // Catch the warning, no further treatment is required
-      // because the Connection events are already doing this
-      // for us.
-    });
+	mongoose
+		.connect(process.env.MONGODB_URI, {
+			useUnifiedTopology: true,
+			useNewUrlParser: true,
+			auto_reconnect: true
+		})
+		.catch(() => {
+			// Catch the warning, no further treatment is required
+			// because the Connection events are already doing this
+			// for us.
+		});
 }
 
 dbConnection.on('connecting', () => {
-  console.info('Connecting to MongoDB...');
+	console.info('Connecting to MongoDB...');
 });
 
 dbConnection.on('error', (error) => {
-  console.error(`MongoDB connection error: ${error}`);
-  mongoose.disconnect();
+	console.error(`MongoDB connection error: ${error}`);
+	mongoose.disconnect();
 });
 
 dbConnection.on('connected', () => {
-  console.info('Connected to MongoDB!');
-  retries = 1;
+	console.info('Connected to MongoDB!');
+	retries = 1;
 });
 
 dbConnection.once('open', () => {
-  console.info('MongoDB connection opened!');
+	console.info('MongoDB connection opened!');
 });
 
 dbConnection.on('reconnected', () => {
-  console.info('MongoDB reconnected!');
-  retries = 1;
+	console.info('MongoDB reconnected!');
+	retries = 1;
 });
 
 dbConnection.on('disconnected', () => {
-  retries += 1;
-  console.error(
-    `MongoDB disconnected! Reconnecting in ${
-      (reconnectTimeout / 1000) * retries
-    }s...`
-  );
-  setTimeout(() => connect(), reconnectTimeout * retries);
+	retries += 1;
+	console.error(
+		`MongoDB disconnected! Reconnecting in ${
+			(reconnectTimeout / 1000) * retries
+		}s...`
+	);
+	setTimeout(() => connect(), reconnectTimeout * retries);
 });
 connect();
 
 passportConfig(passport);
 app.use(
-  express.urlencoded({
-    extended: true,
-  })
+	express.urlencoded({
+		extended: true
+	})
 );
 app.use(express.json());
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', mainUnauthRouter);
 app.use(
-  '/api/v1',
-  passport.authenticate('jwt', { session: false }),
-  mainAuthRouter
+	'/api/v1',
+	passport.authenticate('jwt', { session: false }),
+	mainAuthRouter
 );
 
 app.all('*', (req, res) =>
-  res.status(404).send({ error: 'Route does not exist' })
+	res.status(404).send({ error: 'Route does not exist' })
 );
 
 app.listen(9009, () => console.log(`listening on port 9009`));

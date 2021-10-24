@@ -12,10 +12,10 @@ export default function SignIn() {
 				<h1>Wiki Search</h1>
 			</div>
 			<Input
-				name="email"
-				label="Email"
-				placeholder="john@example.com"
-				value={creds.email}
+				name="username"
+				label="Username"
+				placeholder="username122"
+				value={creds.username}
 				onChange={onChangeHandler}
 			/>
 			<Input

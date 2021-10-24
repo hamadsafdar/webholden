@@ -6,7 +6,7 @@ function generateToken(userId) {
 			_id: userId
 		}
 	};
-	const secret = process.env.JWT_Secret;
+	const secret = process.env.JWT_SECRET;
 	return jwt.sign(payload, secret, {
 		expiresIn: '2w',
 		issuer: 'node-api'

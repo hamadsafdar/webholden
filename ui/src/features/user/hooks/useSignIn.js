@@ -5,15 +5,15 @@ import { useHistory } from 'react-router';
 import { userActions } from '../ducks';
 
 export default function useSignIn() {
-	const [creds, setCreds] = useState({ email: '', password: '' });
+	const [creds, setCreds] = useState({ username: '', password: '' });
 	const history = useHistory();
 
-	const { isLoggedIn } = useSelector((state) => state?.user);
+	const { isLoggedIn } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		isLoggedIn && history.push('/wiki');
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoggedIn]);
 
 	const onChangeHandler = (event) => {
@@ -26,7 +26,7 @@ export default function useSignIn() {
 
 	const onSignInHandler = useCallback(() => {
 		dispatch(userActions.login(creds));
-	}, [creds, dispatch]);
+	}, [creds]);
 
 	return { isLoggedIn, onSignInHandler, onChangeHandler, creds };
 }

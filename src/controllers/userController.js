@@ -1,7 +1,10 @@
 // import { seed } from 'faker';
 
-import jwtUtils from '../utils/jwt';
-import userUtils from '../utils/user';
+import jwtUtils from '../utils/jwt.js';
+import userUtils from '../utils/user.js';
+
+// const jwtUtils = require('../utils/jwt').default;
+// const userUtils = require('../utils/user').default;
 
 export default {
 	/*

@@ -3,13 +3,14 @@ import thunk from 'redux-thunk';
 
 import { utilsReducer, utilsActions } from './utils';
 import { wikiActions, wikiReducer } from './wiki';
-import { userReducer } from '../features/user';
+import userReducer from '../features/user/ducks/reducer';
 
 const rootReducer = combineReducers({
+	user: userReducer,
 	wiki: wikiReducer,
-	utils: utilsReducer,
-	user: userReducer
+	utils: utilsReducer
 });
+
 const initialState = {
 	utils: {
 		loading: false,
@@ -20,8 +21,7 @@ const initialState = {
 		searchedArticle: {}
 	},
 	user: {
-		isLoggedIn: false,
-		name: ''
+		isLoggedIn: false
 	}
 };
 
