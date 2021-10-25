@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Button, Topbar } from '../../components';
 import { Editor, Viewer, ResultView, History } from './components';
 import { useEditor, useSelectedText } from './hooks';
@@ -9,6 +10,12 @@ export default function Wiki() {
 	const { content, onChange, reset } = useEditor();
 	const { onChangeSelection, selected } = useSelectedText();
 	const [showHistory, setShowHistory] = useState(false);
+	const history = useHistory();
+
+	useEffect(() => {
+		!localStorage.getItem('token') && history.push('/');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className="wiki-container">

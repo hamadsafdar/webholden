@@ -15,12 +15,13 @@ function login(creds) {
 				body: JSON.stringify(creds)
 			});
 			const { status } = result;
-			if (status >= 200 || (status < 300 && status === 304)) {
+			if ((status >= 200 && status < 300) || status === 304) {
 				const { user, token } = await result.json();
 				localStorage.setItem('token', token);
 				dispatch({ type: actionTypes.LOGIN, payload: { user } });
 				dispatch(utilsActions.success());
 			} else {
+				status === 401 && alert('Invalid Credentials! Please try again.');
 				dispatch(
 					utilsActions.failure(
 						new Error('An Unexpected Response Returned!')

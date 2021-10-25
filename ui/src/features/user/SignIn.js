@@ -14,7 +14,7 @@ export default function SignIn() {
 			<Input
 				name="username"
 				label="Username"
-				placeholder="username122"
+				placeholder="Username"
 				value={creds.username}
 				onChange={onChangeHandler}
 			/>

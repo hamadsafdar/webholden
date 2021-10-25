@@ -11,10 +11,10 @@ export default function useSignIn() {
 	const { isLoggedIn } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		isLoggedIn && history.push('/wiki');
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoggedIn]);
+	// useEffect(() => {
+	// 	isLoggedIn && history.push('/wiki');
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [isLoggedIn]);
 
 	const onChangeHandler = (event) => {
 		const { name, value } = event.target;
@@ -25,7 +25,10 @@ export default function useSignIn() {
 	};
 
 	const onSignInHandler = useCallback(() => {
-		dispatch(userActions.login(creds));
+		if (creds.username && creds.password) {
+			dispatch(userActions.login(creds));
+		} else alert('Kindly fill in complete credentials');
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [creds]);
 
