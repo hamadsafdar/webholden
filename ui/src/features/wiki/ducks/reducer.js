@@ -23,7 +23,7 @@ function wikiReducer(state = initialState, action) {
 		case actionTypes.FETCH_ARTICLE:
 			return {
 				...state,
-				selected: action.payload.article
+				searchedArticle: action.payload.article
 			};
 		default:
 			return state;

@@ -1,7 +1,14 @@
 .editor-viewer {
 	display: flex;
+	margin-top: 20px;
 }
 
 .reset-btn {
 	margin: auto;
+}
+
+.history-btn {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
 }

@@ -5,7 +5,7 @@
 }
 
 .action-button:hover {
-    background-color: #bf0000;
+	background-color: #bf0000;
 }
 
 table {
@@ -13,6 +13,7 @@ table {
 	margin: auto;
 	border: 1px solid black;
 	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
 th {
@@ -26,5 +27,5 @@ td {
 }
 
 tr:nth-child(even) {
-    background-color: #ddd;
+	background-color: #ddd;
 }

@@ -2,16 +2,23 @@ import { utilsActions } from '../../../redux';
 import actionTypes from './actionTypes';
 import config from '../../../config';
 
+const url = config.baseUrl + '/api/v1/wiki';
+
 function fetchHistory() {
 	return async (dispatch) => {
 		dispatch(utilsActions.request());
 		try {
-			const result = await fetch('');
+			const token = localStorage.getItem('token');
+			const result = await fetch(url + '/all', {
+				headers: {
+					Authorization: 'Bearer ' + token
+				}
+			});
 			if (isSuccessStatus(result)) {
-				const history = await result.json();
+				const { records } = await result.json();
 				dispatch({
 					type: actionTypes.FETCH_HISTORY,
-					payload: { history }
+					payload: { history: records }
 				});
 				dispatch(utilsActions.success());
 			} else {
@@ -27,7 +34,13 @@ function deleteRecord(id) {
 	return async (dispatch) => {
 		dispatch(utilsActions.request());
 		try {
-			const result = await fetch();
+			const token = localStorage.getItem('token');
+			const result = await fetch(url + '/' + id, {
+				method: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + token
+				}
+			});
 			if (isSuccessStatus(result)) {
 				//
 
@@ -49,7 +62,12 @@ function fetchRecord(id) {
 	return async (dispatch) => {
 		dispatch(utilsActions.request());
 		try {
-			const result = await fetch();
+			const token = localStorage.getItem('token');
+			const result = await fetch(url + '/' + id, {
+				headers: {
+					Authorization: 'Bearer ' + token
+				}
+			});
 			if (isSuccessStatus(result)) {
 				//
 				const record = await result.json();
@@ -72,18 +90,14 @@ function fetchArticle(phrase) {
 		dispatch(utilsActions.request());
 		try {
 			const token = localStorage.getItem('token');
-			const result = await fetch(
-				config.baseUrl + '/wiki/search/' + phrase,
-				{
-					method: 'GET',
-					headers: {
-						Authorization: 'Bearer ' + token
-					}
+			const result = await fetch(url + '/search/' + phrase, {
+				headers: {
+					Authorization: 'Bearer ' + token
 				}
-			);
+			});
 			if (isSuccessStatus(result)) {
 				//
-				const article = await result.json();
+				const { record: article } = await result.json();
 				dispatch({
 					type: actionTypes.FETCH_ARTICLE,
 					payload: { article }

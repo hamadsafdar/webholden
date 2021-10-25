@@ -1,14 +1,20 @@
 import ReactQuill from 'react-quill';
+
+import './styles.viewer.css';
 import 'react-quill/dist/quill.bubble.css';
 
 export default function Viewer({ content, onChangeSelection }) {
 	return (
-		<ReactQuill
-			className="viewer"
-			value={content || ''}
-			readOnly
-			theme="bubble"
-			onChangeSelection={onChangeSelection}
-		/>
+		<div className="viewer-container">
+			<div className="title">Preview</div>
+			<ReactQuill
+				className="viewer"
+				value={content || ''}
+				readOnly
+				theme="bubble"
+				placeholder="Preview"
+				onChangeSelection={onChangeSelection}
+			/>
+		</div>
 	);
 }

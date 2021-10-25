@@ -26,6 +26,7 @@ export default function useSignIn() {
 
 	const onSignInHandler = useCallback(() => {
 		dispatch(userActions.login(creds));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [creds]);
 
 	return { isLoggedIn, onSignInHandler, onChangeHandler, creds };

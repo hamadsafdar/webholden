@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import config from '../../../config';
+import { wikiActions } from '../ducks';
 
 export default function useSelectedText() {
 	const [selected, setSelected] = useState('');
-	const [wikiResult, setWikiResult] = useState({});
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		selected.length && fetchResults();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected]);
 
 	const onChangeSelection = (range, s, editor) => {
@@ -18,24 +20,9 @@ export default function useSelectedText() {
 		}
 	};
 
-	const fetchResults = async () => {
-		try {
-			const token = localStorage.getItem('token');
-			console.log(selected);
-			const result = await fetch(config.baseUrl + '/wiki/' + selected, {
-				method: 'GET',
-				headers: {
-					Authorization: 'Bearer ' + token,
-					'Content-Type': 'application/json'
-				}
-			});
-			const { status } = result;
-			if (status) {
-				const json = await result.json();
-				setWikiResult(json);
-			}
-		} catch (error) {}
+	const fetchResults = () => {
+		dispatch(wikiActions.fetchArticle(selected));
 	};
 
-	return { selected, onChangeSelection, wikiResult };
+	return { selected, onChangeSelection };
 }
