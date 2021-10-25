@@ -1,12 +1,12 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const wikiSchema = new Schema(
+const wikiSchema = new mongoose.Schema(
 	{
 		phrase: { type: String, required: true },
 		title: { type: String, required: true },
 		pageId: { type: Number, required: true },
 		searchedBy: {
-			type: Schema.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true
 		},
@@ -17,6 +17,6 @@ const wikiSchema = new Schema(
 	}
 );
 
-const wikiModel = model('Wiki', wikiSchema);
+const wikiModel = mongoose.model('Wiki', wikiSchema);
 
 export default wikiModel;
