@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import express from 'express';
 import passport from 'passport';
 import cors from 'cors';
+import morgan from 'morgan';
+
 import mainUnauthRouter from './routes/v1/unauthIndex.js';
 import mainAuthRouter from './routes/v1/authIndex.js';
 import passportConfig from './middlewares/passport.js';
@@ -70,6 +72,7 @@ app.use(
 		extended: true
 	})
 );
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());

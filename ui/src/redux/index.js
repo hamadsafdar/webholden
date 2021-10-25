@@ -2,8 +2,9 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import { utilsReducer, utilsActions } from './utils';
-import { wikiActions, wikiReducer } from './wiki';
+
 import userReducer from '../features/user/ducks/reducer';
+import { wikiReducer } from '../features/wiki';
 
 const rootReducer = combineReducers({
 	user: userReducer,
@@ -28,4 +29,4 @@ const initialState = {
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
 export default store;
-export { wikiActions, utilsActions };
+export { utilsActions };

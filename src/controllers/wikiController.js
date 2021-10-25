@@ -6,15 +6,14 @@ import wikiModel from '../models/wikiRecords';
  * */
 
 export default {
-	async insertWikiRecord(req, res) {
+	async insertWikiRecord(record) {
 		try {
-      
 		} catch (error) {}
 	},
 
-	async getAllWikiRecords() {
+	async getAllWikiRecords(userId) {
+		console.log(userId);
 		try {
-
 		} catch (error) {}
 	},
 
@@ -26,7 +25,5 @@ export default {
 		// Your logic here
 	},
 
-	async deleteWikiRecord(req, res) {
-	const 
-	}
+	async deleteWikiRecord(req, res) {}
 };
