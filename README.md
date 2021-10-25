@@ -1,22 +1,12 @@
 HOW TO RUN:
 
-BACKEND:
+To install dependencies:
+ run `npm run setup` command in the root folder. Will install dependencies of frontend as well as backend.
+Some vulnerabilities will be reported which are only because of mismatch of npm or node version.
 
-- Install the node modules using yout package manager
-- After installing the modules, and setting up mongo, run `seedDatabase.js` script to populate database with
-  dummy data.
-- Execute the command `npm start` to start the server
-- You are allowed to change paths, update modules and/or anything to get your code working
-- Questions are very basic, so you are not allowed to use any helper libraries to implement them
-- Implement your logic where it suits
-- sample env has also been attached, so set your environment variables according to it
-- Implement the functions according to the description given in /src/controllers/userController.js
+To run application:
+  - Run the migration script of Database.
+  - Run `npm start` in the root folder. Will start frontend as well as backend.
 
-QUESTIONS:
-The questions are designed to test the logical ability of the candidate.
-Candidate is expected to implement the best solutions of a given function with minimum space and/or time complexity.
 
-NOTE: **DO NOT CHANGE THE FUNCTION NAMES AS WE ARE GOING TO RUN AUTOMATED TESTS ON THIS ASSESSMENT**.
-
-FRONTEND:
-- Read the description given in readme.txt inside UI folder and add your react app in that folder too.
+P.S. I have modified migration script. May cause some error on Windows. It is requested to download and run the original scrpt. Also I'm attaching the .env file with it.
