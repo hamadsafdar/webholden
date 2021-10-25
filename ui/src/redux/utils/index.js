@@ -1,5 +1,5 @@
 const initialState = {
-	loading: false,
+	isLoading: false,
 	error: {}
 };
 
@@ -18,9 +18,9 @@ const utilsActions = {
 function utilsReducer(state = initialState, action) {
 	switch (action?.type) {
 		case actionTypes.REQUEST:
-			return { ...state, loading: true };
+			return { ...state, isLoading: true };
 		case actionTypes.SUCCESS:
-			return { ...state, loading: false };
+			return { ...state, isLoading: false };
 		case actionTypes.FAILURE:
 			return { loading: false, error: { ...action.payload.err } };
 		default:

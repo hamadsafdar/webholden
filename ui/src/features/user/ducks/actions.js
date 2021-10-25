@@ -16,7 +16,6 @@ function login(creds) {
 			});
 			const { status } = result;
 			if (status >= 200 || (status < 300 && status === 304)) {
-				console.log(await result.json());
 				const { user, token } = await result.json();
 				localStorage.setItem('token', token);
 				dispatch({ type: actionTypes.LOGIN, payload: { user } });
@@ -34,7 +33,10 @@ function login(creds) {
 	};
 }
 
-function logout() {}
+function logout() {
+	localStorage.clear();
+	return { type: actionTypes.LOGOUT };
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

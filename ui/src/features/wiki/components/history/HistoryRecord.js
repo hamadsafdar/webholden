@@ -1,4 +1,4 @@
-import { Button } from '../button';
+import { Button } from '../../../../components';
 
 export default function HistoryRecord({ pageId, content, serial }) {
 	return (
